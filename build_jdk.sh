@@ -27,8 +27,8 @@ AUTOCONF_EXTRA_ARGS+="OBJCOPY=$OBJCOPY \
   "
 
 export BOOT_JDK=$PWD/jdk-24.0.2
-export CFLAGS+=" -DANDROID -D__ANDROID__=1 -Wno-int-conversion -Wno-error=implicit-function-declaration"
-export LDFLAGS+=" -L$PWD/dummy_libs" 
+export CFLAGS+=" -DANDROID -D__ANDROID__=1 -Wno-int-conversion -Wno-error=implicit-function-declaration -O3 -mcpu=cortex-a725 -flto=thin -fwhole-program-vtables -mllvm -polly -mllvm -polly-vectorizer=stripmine -fno-semantic-interposition -fvisibility=hidden -fvisibility-inlines-hidden -fno-plt -ffunction-sections -fdata-sections -Wno-unused-private-field -Wno-sometimes-uninitialized -Wno-unknown-warning-option"
+export LDFLAGS+=" -L$PWD/dummy_libs -mcpu=cortex-a725 -flto=thin -fwhole-program-vtables -fuse-ld=lld -fno-semantic-interposition -fvisibility=hidden -fvisibility-inlines-hidden -fno-plt -ffunction-sections -fdata-sections -Wl,--gc-sections -Wl,--as-needed -Wl,--exclude-libs,ALL -Wl,-Bsymbolic"
 
 # Create dummy libraries so we won't have to remove them in OpenJDK makefiles
 mkdir -p dummy_libs

@@ -1,4 +1,4 @@
-export NDK_VERSION=r28
+export NDK_VERSION=r29
 
 if [[ -z "$BUILD_FREETYPE_VERSION" ]]
 then
@@ -25,13 +25,8 @@ fi
 export JVM_PLATFORM=linux
 # Set NDK
 export API=21
-if [[ -z "$ANDROID_NDK_ROOT" ]]; then
-  export NDK=$PWD/android-ndk-$NDK_VERSION
-  export ANDROID_NDK_ROOT=$NDK
-else
-  export NDK_USE_EXISTING=1
-  export NDK=$ANDROID_NDK_ROOT
-fi
+export NDK=$PWD/android-ndk-$NDK_VERSION
+export ANDROID_NDK_ROOT=$NDK
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
 
 export ANDROID_INCLUDE=$TOOLCHAIN/sysroot/usr/include
@@ -47,7 +42,7 @@ export AR=$TOOLCHAIN/bin/llvm-ar
 export AS=$TOOLCHAIN/bin/llvm-as
 export CC=$PWD/android-wrapped-clang
 export CXX=$PWD/android-wrapped-clang++
-export LD=$TOOLCHAIN/bin/ld
+export LD=$TOOLCHAIN/bin/ld.lld
 export OBJCOPY=$TOOLCHAIN/bin/llvm-objcopy
 export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
 export STRIP=$TOOLCHAIN/bin/llvm-strip
